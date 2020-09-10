@@ -14,7 +14,7 @@ export class AppComponent {
   prodotti: Prodotto[] = [];
 
   constructor(public servizioProdotti: ProdottiService){
-    this.servizioProdotti.estraiProdottiOsservabili()
+    this.servizioProdotti.estraiProdottiDaApi()
     .subscribe(prodotti => this.prodotti = prodotti);
   }
 
