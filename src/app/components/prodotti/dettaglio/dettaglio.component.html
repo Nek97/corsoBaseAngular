@@ -1,3 +1,11 @@
 <p>Dettaglio prodotto</p>
 <p>{{prodotto.nome}}</p>
+<div class="form-group">
+  <label for="prodotto.nome">Nome</label>
+  <input class="form-control" type="text" [(ngModel)]="prodotto.nome">
+</div>
+
+
 <button class="btn btn-danger" (click)="tornaSu()" > Torna su</button>
+
+
