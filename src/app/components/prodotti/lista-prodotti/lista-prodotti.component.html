@@ -1,0 +1,36 @@
+<div *ngIf="prodottoSelezionato === null; else mostraDettaglio">
+  <div *ngIf="prodotti && prodotti.length > 0; else bloccoElse">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Prezzo</th>
+          <th>Data</th>
+          <th>Disponibilità</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prodotto of prodotti">
+          <td>{{prodotto.nome | uppercase}}</td>
+          <td>{{prodotto.prezzo | currency: 'EUR'}}</td>
+          <td>{{prodotto.dataProduzione | date:'dd/MM/yyyy'}}</td>
+          <td>{{prodotto.disponibile | boolean}}</td>
+          <td><img [src]="prodotto.urlImmagine"></td>
+          <td><button class="btn btn-warning" (click)="mostraDettagli(prodotto)">Dettagli</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #bloccoElse>
+  <p>Magazzino vuoto</p>
+</ng-template>
+
+{{messaggio}}
+
+<ng-template #mostraDettaglio>
+  <app-dettaglio (lanciaNotifica)='notificaRicevuta($event)' [prodotto]="prodottoSelezionato"></app-dettaglio>
+</ng-template>
