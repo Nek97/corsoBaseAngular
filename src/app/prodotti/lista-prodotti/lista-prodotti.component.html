@@ -1,0 +1,69 @@
+<div *ngIf="prodottoSelezionato === null else mostraDivDettaglio">
+  <div *ngIf="prodotti && prodotti.length > 0 else negoziovuoto">
+    <p>Ho {{prodotti.length}} prodotti</p>
+    <table class=" table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>
+            Nome
+          </th>
+          <th>
+            Prezzo
+          </th>
+          <th>
+            Descrizione
+          </th>
+          <th>
+            Data
+          </th>
+          <th>
+            Disponibilità
+          </th>
+          <th>
+            Immagine
+          </th>
+          <th>
+            Bottone
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prodotto of prodotti">
+          <td>
+            {{prodotto.nome | uppercase}}
+          </td>
+          <td>
+            {{prodotto.prezzo | currency: 'EUR'}}
+          </td>
+          <td>
+            {{prodotto.descrizione}}
+          </td>
+          <td>
+            {{prodotto.dataProduzione | date: 'dd/MM/yyyy'}}
+          </td>
+          <td>
+            {{prodotto.disponibilita | convertiBooleano}}
+          </td>
+          <td>
+            <img [src]="prodotto.immagine">
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="mostraDettaglio(prodotto)">
+              Mostra Dettagli
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #mostraDivDettaglio>
+  <app-dettaglio-prodotto (mandaNotifica)="messaggioRicevuto($event)" [prodotto]="prodottoSelezionato"></app-dettaglio-prodotto>
+</ng-template>
+
+<ng-template #negoziovuoto>
+  <p>
+    Negozio vuoto
+  </p>
+</ng-template>
